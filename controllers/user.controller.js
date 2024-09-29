@@ -4,6 +4,12 @@ export const register = async (req, res) => {
 	try {
 		const { name, address } = req.body;
 
+		if (!name || !address) {
+			return res
+				.status(422)
+				.send({ message: 'name and address is required!' });
+		}
+
 		const [userResults] = await connection.query(
 			`INSERT INTO users (name) VALUES('${name}')`,
 		);
